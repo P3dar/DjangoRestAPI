@@ -6,6 +6,9 @@ This project was made for a back-end course assessment.
 It's a mockup online restaurant RestAPI that allow customers to register and create an authentication token for performing different actions.
 
 The Api has an authorization system that recognize if a user is a customer, a manager or a delivery-crew member.
+
+The api utilize Djoser for Authentication. It automatically create generic endpoints for register, login, change password ecc...  they are avaible in the Djoser documentation in its website.
+
 here's all the endpoints avaible and explained:
 
     /api/menu-items/
@@ -38,7 +41,13 @@ here's all the endpoints avaible and explained:
     
     /api/category
     
-    
+    A manager can view and add a new category
     
     /api/orders
+    
+    a customer can create an order object and orderitems objects if his cart is not empty sending a blank post request to the endpoint. the logic of the view automatically retrive the items from the cart and convert them in orderitems. all the order items are bouded to a order object. the order object has some informations for exemple the date when the order was palced, the user who created it, the delivery crew that will process the order (set to none by default) and the total price of all the Orderitems in it. After this action the customer cart is automatically deleted. when a customer use a get method he can only see the orders, with the related orderitems, he placed. A Delivery-crew member can see only the orders with his ID. A manager can see all the orders.
+    
     /api/orders/<int:pk>
+    
+    a customer can see a specific order (if it exist and if it's his order). a manager can patch a order, this is used for pairing a delivery-crew worker to the order. he also can delete a order. A delivery cew memebr can also patch a order BUT only if the order is paired with him, he also have a limit to patch only the "status" field so he can update the order if it's delivered.
+    
